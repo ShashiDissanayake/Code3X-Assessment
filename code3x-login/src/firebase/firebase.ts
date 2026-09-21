@@ -2,12 +2,12 @@ import { getApp, getApps, initializeApp, type FirebaseOptions } from 'firebase/a
 import { getAuth, GoogleAuthProvider, type Auth } from 'firebase/auth'
 
 const firebaseConfig: FirebaseOptions = {
-  apiKey: "AIzaSyAbBZFF9G0WFNvQAp-5mRMm9xUxXFcEZPI",
-  authDomain: "code3x-login-assessment-216b5.firebaseapp.com",
-  projectId: "code3x-login-assessment-216b5",
-  storageBucket: "code3x-login-assessment-216b5.firebasestorage.app",
-  messagingSenderId: "226186591095",
-  appId: "1:226186591095:web:2b19c78d74053aa645ff72"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 }
 
 const REQUIRED_KEYS = ['apiKey', 'authDomain', 'projectId', 'appId'] as const
