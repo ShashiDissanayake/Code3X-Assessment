@@ -1,4 +1,3 @@
-/* Global base styles. Component styling lives in the MUI theme (src/theme.ts). */
 :root {
   color-scheme: light;
   text-rendering: optimizeLegibility;
