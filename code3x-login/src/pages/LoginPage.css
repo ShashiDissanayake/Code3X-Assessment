@@ -1,0 +1,24 @@
+/* Gentle floating motion for the decorative avatars and card in the illustration panel. */
+@keyframes login-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.login-float {
+  animation: login-float 6s ease-in-out infinite;
+}
+
+.login-float--delayed {
+  animation-delay: -3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-float {
+    animation: none;
+  }
+}

@@ -1,75 +1,59 @@
-# React + TypeScript + Vite
+# Code3X Login Assessment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Login page UI built with **React + Vite + TypeScript** and **Material UI**, with
+Google sign-in via **Firebase Authentication** and deployment on **Firebase Hosting**.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Two-column login layout (form + illustration panel) that collapses to a single column on mobile
+- Email / password validation (required, email format, min. 6 characters) with accessible error messages
+- Show / hide password toggle
+- Google sign-in with Firebase (`signInWithPopup`); on success the app redirects to `/auth-success`
+  and displays the Firebase ID token returned by `user.getIdToken()`
+- Apple / Facebook buttons are visual only
 
-## React Compiler
+## Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+cp .env.example .env.local   # then fill in your Firebase web app config
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Command           | Description                     |
+| ----------------- | ------------------------------- |
+| `npm run dev`     | Start the Vite dev server       |
+| `npm run build`   | Type-check and build to `dist/` |
+| `npm run lint`    | Run ESLint                      |
+| `npm run preview` | Preview the production build    |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Deploy to Firebase Hosting
 
+```bash
+npm install -g firebase-tools
+firebase login
+firebase use --add            # select your Firebase project
+npm run build
+firebase deploy --only hosting
+```
+
+`firebase.json` rewrites all routes to `index.html`, so client-side routes such as
+`/auth-success` work after deployment.
+
+## Project structure
+
+```
+src/
+├── components/IllustrationPanel.tsx   # right-hand illustration panel
+├── firebase/firebase.ts               # Firebase app + auth initialisation
+├── pages/
+│   ├── LoginPage.tsx / LoginPage.css
+│   └── AuthSuccessPage.tsx
+├── services/authService.ts            # Google sign-in, sign-out, error mapping
+├── types/                             # shared TypeScript types
+├── theme.ts                           # MUI theme
+├── App.tsx                            # routes
+└── main.tsx
 ```
